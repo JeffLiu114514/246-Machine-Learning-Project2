@@ -16,15 +16,15 @@ def load_newts(filepath, do_min_max=False):
        for col in ['SR', 'NR', 'TR', 'VR', 'OR', 'RR', 'BR']:
            xvals_raw[col] = (xvals_raw[col] - xvals_raw[col].min())/(xvals_raw[col].max() - xvals_raw[col].min())
     xvals = pd.get_dummies(xvals_raw, columns=['Motorway', 'TR', 'VR', 'SUR1', 'SUR2', 'SUR3', 'UR', 'FR', 'MR', 'CR'])
-    return xvals, yvals
+    return xvals.to_numpy(), yvals.to_numpy()
 
-def eval_kfold_stub(xvals, yvals):
-    kf = KFold(n_splits = 5, shuffle = True)
-    for train_idxs, test_idxs in kf.split(data):
-        xtrain_this_fold = xvals.loc[train_idxs]
-        xtest_this_fold = xvals.loc[test_idxs]
-        ytrain_this_fold = yvals.loc[train_idxs]
-        ytest_this_fold = yvals.loc[test_idxs]
-        # train a model on this fold
-        # test the model on this fold
+# def eval_kfold_stub(xvals, yvals):
+#     kf = KFold(n_splits = 5, shuffle = True)
+#     for train_idxs, test_idxs in kf.split(data):
+#         xtrain_this_fold = xvals.loc[train_idxs]
+#         xtest_this_fold = xvals.loc[test_idxs]
+#         ytrain_this_fold = yvals.loc[train_idxs]
+#         ytest_this_fold = yvals.loc[test_idxs]
+#         # train a model on this fold
+#         # test the model on this fold
 
