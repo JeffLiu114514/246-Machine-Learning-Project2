@@ -5,6 +5,7 @@ from sklearn.metrics import f1_score, accuracy_score
 import numpy as np
 from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
+import time
 
 
 # SVM 1. LinearSVC + slack variable parameter
@@ -15,7 +16,10 @@ def LinearSVC_train(x_train, y_train, slack_param=1.0):
 
 
 def linear_svm_eval_training_set(xvals, yvals, slack_param):
+    time1 = time.perf_counter()
     linear_classifier = LinearSVC_train(xvals, yvals, slack_param)
+    time2 = time.perf_counter()
+    print("Training time for linear SVM with slack param {0} is {1}\n".format(slack_param, time2-time1))
     predictions = linear_classifier.predict(xvals)
     return f1_score(yvals, predictions), accuracy_score(yvals, predictions)
 
@@ -78,7 +82,10 @@ def SVC_train(x_train, y_train, slack_param=1.0, scale_param='scale'):
 
 
 def SVC_eval_training_set(xvals, yvals, slack_param=1.0, scale_param='scale'):
+    time1 = time.perf_counter()
     classifier = SVC_train(xvals, yvals, slack_param=slack_param, scale_param=scale_param)
+    time2 = time.perf_counter()
+    print("Training time for kernel SVC with slack param {0} and scale param {1} is {2}\n".format(slack_param, scale_param, time2 - time1))
     predictions = classifier.predict(xvals)
     return f1_score(yvals, predictions), accuracy_score(yvals, predictions)
 
